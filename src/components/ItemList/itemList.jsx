@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import {Container, Col, Row} from 'react-bootstrap';
 import ItemComponent from './Item/item';
 import itemService from './itemListService';
@@ -10,7 +11,9 @@ class ItemListComponent extends React.Component {
     }
 
     async componentDidMount() {
-        itemService()
+        const id = this.props.match.params.id ? this.props.match.params.id : -1;
+        console.log(id)
+        itemService(id)
         .then(res => this.setState({products: res}))
     }
 
@@ -25,4 +28,4 @@ class ItemListComponent extends React.Component {
     }
 }
 
-export default ItemListComponent;
+export default withRouter(ItemListComponent);

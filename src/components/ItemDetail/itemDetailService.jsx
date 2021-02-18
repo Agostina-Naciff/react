@@ -18,7 +18,7 @@ const itemDetailService = (id) => {
                     }
                 ],
                 price: 0,
-                stock: 0,
+                stock: 4,
                 pictureUrl: 'unaUrl'
             })
         }, 2000)

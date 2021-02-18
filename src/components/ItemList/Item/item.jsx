@@ -1,16 +1,23 @@
+import './item.css';
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import ItemCountComponent from './ItemCount/ItemCount'
 
-const ItemComponent = ({props}) => {
-    return(
+const ItemComponent = ({ props }) => {
+
+    return (
         <>
         <Card>
-            <Card.Img />
+            <Link to={`/detail/${props.id}`}>
+                <Card.Img />
+            </Link>
             <Card.Body>
-                <Card.Title>{props.title}</Card.Title>
-                <Card.Text>{props.price}</Card.Text>
-                <ItemCountComponent stock={props.stock}/>
+            <Link to={`/detail/${props.id}`}>
+                    <Card.Title>{props.title}</Card.Title>
+                    <Card.Text>{props.price}</Card.Text>
+            </Link>
+                <ItemCountComponent stock={props.stock} />
             </Card.Body>
         </Card>
         </>
