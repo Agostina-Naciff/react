@@ -1,10 +1,14 @@
 import './item.css';
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ItemCountComponent from './ItemCount/ItemCount'
 
 const ItemComponent = ({ props }) => {
+
+    let [count, setCount] = useState(0);
+
+    const add = (count) => setCount(count)
 
     return (
         <>
@@ -17,7 +21,11 @@ const ItemComponent = ({ props }) => {
                     <Card.Title>{props.title}</Card.Title>
                     <Card.Text>{props.price}</Card.Text>
             </Link>
-                <ItemCountComponent stock={props.stock} />
+            {count === 0 ? 
+                <ItemCountComponent stock={props.stock} onAdd={add} />
+                :
+                <Button>Termina tu compra</Button>
+            }
             </Card.Body>
         </Card>
         </>

@@ -12,7 +12,6 @@ class ItemListComponent extends React.Component {
 
     async componentDidMount() {
         const id = this.props.match.params.id ? this.props.match.params.id : -1;
-        console.log(id)
         itemService(id)
         .then(res => this.setState({products: res}))
     }

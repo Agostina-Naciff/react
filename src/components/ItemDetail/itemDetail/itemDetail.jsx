@@ -1,9 +1,16 @@
-import React from 'react';
-import { Col, Image, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Col, Image, Row, Button } from "react-bootstrap";
 import ItemCountComponent from '../../ItemList/Item/ItemCount/ItemCount';
 
 
 const ItemDetail = ({ props }) => {
+
+    let [count, setCount] = useState(0);
+
+    const adding = (count) => {
+        setCount(count)
+    }
+
     return (
         <>
             <Row>
@@ -14,7 +21,12 @@ const ItemDetail = ({ props }) => {
                     <Row>{props.price}</Row>
                     <Row>Metodo de pago</Row>
                     <Row>Envio</Row>
-                    <ItemCountComponent stock={props.stock} />
+                    {count === 0 ? 
+                    <ItemCountComponent stock={props.stock} onAdd={adding} />
+                    :
+                    <Button>Termina tu compra</Button>
+                    }
+                    
                 </Col>
             </Row>
             <Row>{props.description}</Row>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, FormControl, InputGroup } from "react-bootstrap"
 
-const ItemCountComponent = ({stock}) => {
+const ItemCountComponent = ({stock, onAdd}) => {
 
     let [amount, setAmount] = useState(stock === 0 ? 0 : 1);
+    const event = () => onAdd(amount);
 
     const setCount = (text) => {
         return(
@@ -29,7 +30,7 @@ const ItemCountComponent = ({stock}) => {
                 <Button onClick={setCount('+')}>+</Button>
             </InputGroup.Append>
         </InputGroup>
-        <Button disabled={stock === 0}>Agregar a Carrito</Button>
+        <Button disabled={stock === 0} onClick={event}>Agregar a Carrito</Button>
         </>
     )
 }
