@@ -6,12 +6,14 @@ import NavBarComponent from './components/NavBar';
 import HeaderComponent from './components/header';
 import ItemListComponent from './components/ItemList/itemList';
 import ItemDetailContainerComponent from './components/ItemDetail/itemDetailContainer';
+import CartContext from './Context/CartContext';
 
 function App() {
   return (
     <BrowserRouter>
       <HeaderComponent />
       <NavBarComponent />
+      <CartContext>
       <Switch>
         <Route exact path="/">
           <Redirect to="/list" />
@@ -23,6 +25,7 @@ function App() {
           <ItemDetailContainerComponent />
         </Route>
       </Switch>
+      </CartContext>
     </BrowserRouter>
   );
 }

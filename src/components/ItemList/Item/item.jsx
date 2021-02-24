@@ -1,14 +1,15 @@
 import './item.css';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import ItemCountComponent from './ItemCount/ItemCount'
+import ItemCountComponent from './ItemCount/ItemCount';
+import { cartContext } from '../../../Context/CartContext';
 
 const ItemComponent = ({ props }) => {
 
-    let [count, setCount] = useState(0);
+    const { addItem,isInCart } = useContext(cartContext);
 
-    const add = (count) => setCount(count)
+    const add = (count) => addItem({...props, count})
 
     return (
         <>
@@ -21,7 +22,7 @@ const ItemComponent = ({ props }) => {
                     <Card.Title>{props.title}</Card.Title>
                     <Card.Text>{props.price}</Card.Text>
             </Link>
-            {count === 0 ? 
+            {isInCart(props.id) ? 
                 <ItemCountComponent stock={props.stock} onAdd={add} />
                 :
                 <Button>Termina tu compra</Button>
