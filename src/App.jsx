@@ -7,6 +7,7 @@ import HeaderComponent from './components/header';
 import ItemListComponent from './components/ItemList/itemList';
 import ItemDetailContainerComponent from './components/ItemDetail/itemDetailContainer';
 import CartContext from './Context/CartContext';
+import CartComponent from './components/Cart/cart';
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         </Route>
         <Route exact path="/detail/:id">
           <ItemDetailContainerComponent />
+        </Route>
+        <Route exact path="/cart">
+          <CartComponent />
         </Route>
       </Switch>
       </CartContext>

@@ -24,13 +24,18 @@ const CartContext = ({children}) => {
         return product.findIndex(x => x.id === id)
     }
 
+    const getCart = () => {
+        return product;
+    }
+
     return ( 
         <>
         <cartContext.Provider value={{
             clear,
             deleteItem,
             isInCart,
-            addItem
+            addItem,
+            getCart
         }}>
             {children}
         </cartContext.Provider>
