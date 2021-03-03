@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from "react";
 import { Col, Image, Row, Button } from "react-bootstrap";
 import ItemCountComponent from '../../ItemList/Item/ItemCount/ItemCount';
@@ -24,7 +25,9 @@ const ItemDetail = ({ props }) => {
                     {count === 0 ? 
                     <ItemCountComponent stock={props.stock} onAdd={adding} />
                     :
-                    <Button>Termina tu compra</Button>
+                    <Link to={'/cart'}>
+                        <Button>Termina tu compra</Button>
+                    </Link>
                     }
                     
                 </Col>

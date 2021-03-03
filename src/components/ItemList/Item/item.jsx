@@ -25,7 +25,9 @@ const ItemComponent = ({ props }) => {
             {isInCart(props.id) ? 
                 <ItemCountComponent stock={props.stock} onAdd={add} />
                 :
-                <Button>Termina tu compra</Button>
+                <Link to={'/cart'}>
+                    <Button>Termina tu compra</Button>
+                </Link>
             }
             </Card.Body>
         </Card>
