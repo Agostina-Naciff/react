@@ -19,11 +19,11 @@ const ItemComponent = ({ props }) => {
             </Link>
             <Card.Body>
             <Link to={`/detail/${props.id}`}>
-                    <Card.Title>{props.title}</Card.Title>
-                    <Card.Text>{props.price}</Card.Text>
+                    <Card.Title>{props.data.title}</Card.Title>
+                    <Card.Text>{props.data.price}</Card.Text>
             </Link>
             {isInCart(props.id) ? 
-                <ItemCountComponent stock={props.stock} onAdd={add} />
+                <ItemCountComponent stock={props.data.stock} onAdd={add} />
                 :
                 <Link to={'/cart'}>
                     <Button>Termina tu compra</Button>

@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import {Container, Col, Row} from 'react-bootstrap';
 import ItemComponent from './Item/item';
-import itemService from './itemListService';
+import { getFirestore } from '../../firebase/index';
 
 class ItemListComponent extends React.Component {
 
@@ -11,9 +11,26 @@ class ItemListComponent extends React.Component {
     }
 
     async componentDidMount() {
-        const id = this.props.match.params.id ? this.props.match.params.id : -1;
-        itemService(id)
-        .then(res => this.setState({products: res}))
+        const db = getFirestore();
+        const itemCollection = db.collection('itemCollection');
+        itemCollection.get()
+        .then((snapShot) => {
+            if (snapShot.size === 0) {
+                console.log('no results')
+            }
+            this.setState({ products: snapShot.docs.map(doc => {
+                return {
+                    id: doc.id,
+                    data: doc.data()
+                }
+            })});
+        })
+        .catch(e => {
+            console.log('error')
+        })
+        .finally(() => {
+            console.log('terminado')
+        })
     }
 
     render() {

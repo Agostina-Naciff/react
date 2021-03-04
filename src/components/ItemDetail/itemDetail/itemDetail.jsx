@@ -11,12 +11,11 @@ const ItemDetail = ({ props }) => {
     const adding = (count) => {
         setCount(count)
     }
-
     return (
         <>
             <Row>
                 <Col>
-                    <Image src={props.pictureUrl} />
+                    <Image src={props.image} />
                 </Col>
                 <Col>
                     <Row>{props.price}</Row>
