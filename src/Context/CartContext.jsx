@@ -28,18 +28,32 @@ const CartContext = ({children}) => {
         return product;
     }
 
+    const finishShop = () => {
+        return product.reduce( (acc, el) => {
+            return acc.concat({
+                id: el.id,
+                title: el.title,
+                price: el.price * el.count
+            })
+        }, [])
+    }
+
+    const total = () => {
+        return product.reduce((acc, el) => acc + (el.price * el.count), 0)
+    }
+
     return ( 
-        <>
         <cartContext.Provider value={{
             clear,
             deleteItem,
             isInCart,
             addItem,
-            getCart
+            getCart,
+            finishShop,
+            total
         }}>
             {children}
         </cartContext.Provider>
-        </>
     )
 }
 
