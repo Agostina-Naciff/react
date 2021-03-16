@@ -73,7 +73,7 @@ const CartComponent = () => {
                                 <td>{x.data.price}</td>
                                 <td>{x.count}</td>
                                 <td>{x.count * x.data.price}</td>
-                                <td><a onClick={deleteItem}>Eliminar</a></td>
+                                <td><a onClick={deleteItem(x.id)}>Eliminar</a></td>
                             </tr>
                         )})}
                     </tbody>

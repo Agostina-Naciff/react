@@ -22,7 +22,9 @@ const CartContext = ({children}) => {
     }
 
     const deleteItem = (id) => {
-        product.splice(isInCart(id), 1);
+        let newProducts = [...product];
+        newProducts = newProducts.filter(val=>val.id !== id);
+        setProduct(newProducts);
     }
 
     const isInCart = (id) => {
