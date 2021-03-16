@@ -7,8 +7,13 @@ const CartContext = ({children}) => {
     const [product, setProduct] = useState([]);
 
     const addItem = (item) => {
-        if (isInCart(item.id) === -1) {
+        const index = isInCart(item.id);
+        if (index === -1) {
             setProduct([...product, item]);
+        } else {
+            const item = [...product];
+            item[index].count = item.count;
+            setProduct(item);
         }
     }
 
@@ -32,8 +37,8 @@ const CartContext = ({children}) => {
         return product.reduce( (acc, el) => {
             return acc.concat({
                 id: el.id,
-                title: el.title,
-                price: el.price * el.count
+                title: el.data.title,
+                price: el.data.price * el.count
             })
         }, [])
     }

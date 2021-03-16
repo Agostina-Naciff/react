@@ -1,17 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import './cart.css';
 import { Link } from 'react-router-dom'
-import { Table, Container, Row, Button } from 'react-bootstrap';
+import { Table, Container, Row, Button, Modal } from 'react-bootstrap';
 import { cartContext } from '../../Context/CartContext';
 import { getFirestore } from '../../firebase/index';
 
 const CartComponent = () => {
 
-    useEffect(() => {
-        
-    })
     const comprar = () => {
-        console.log(finishShop)
+        console.log(finishShop())
         const db = getFirestore();
         const itemCollection = db.collection('compras');
         itemCollection.add({
@@ -20,32 +17,42 @@ const CartComponent = () => {
                 phone: 123456789,
                 email: 'agos@compras.com'
             },
-            items: finishShop,
+            items: finishShop(),
             date: '9999-12-31T23:59:59Z',
-            total: total
+            total: total()
         })
         .then(docRef => {
-            console.log(docRef)
+            console.log(docRef.id)
+            return (
+            <Modal.Dialog>
+                <Modal.Header>Compra Finalizada!</Modal.Header>
+                <Modal.Body>
+                    Tu codigo de seguimiento es el siguiente: {docRef}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary">Close</Button>
+                </Modal.Footer>
+            </Modal.Dialog>
+            )
         })
     }
 
-    const { getCart, finishShop, total } = useContext(cartContext);
-    // console.log(getCart())
-    // if (getCart().length === 0) {
-    //     return (
-    //         <Container>
-    //             <Row>
-    //                 <p>No tienes articulos en el carrito</p>
-    //             </Row>
-    //             <Row>
-    //                 <Link to="/list">
-    //                     <Button>Ir a Comprar</Button>
-    //                 </Link>
-    //             </Row>
-    //         </Container>
-    //     )
-    // } else {
-        console.log(getCart)
+    const { getCart, finishShop, total, deleteItem } = useContext(cartContext);
+
+    if (getCart().length === 0) {
+        return (
+            <Container>
+                <Row>
+                    <p>No tienes articulos en el carrito</p>
+                </Row>
+                <Row>
+                    <Link to="/list">
+                        <Button>Ir a Comprar</Button>
+                    </Link>
+                </Row>
+            </Container>
+        )
+    } else {
         return (
             <Container>
                 <Table>
@@ -59,21 +66,22 @@ const CartComponent = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {getCart.map(x => (
+                        { getCart().map(x => {
+                            return (
                             <tr>
-                                <td>{x.title}</td>
-                                <td>{x.price}</td>
+                                <td>{x.data.title}</td>
+                                <td>{x.data.price}</td>
                                 <td>{x.count}</td>
-                                <td>{x.count * x.price}</td>
-                                <td><a href="">Eliminar</a></td>
+                                <td>{x.count * x.data.price}</td>
+                                <td><a onClick={deleteItem}>Eliminar</a></td>
                             </tr>
-                        ))} */}
+                        )})}
                     </tbody>
                 </Table>
                 <Button onClick={comprar}>Comprar</Button>
             </Container>
         )
-    // }
+    }
 
 
 
