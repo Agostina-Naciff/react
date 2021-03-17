@@ -46,7 +46,7 @@ const CartContext = ({children}) => {
     }
 
     const total = () => {
-        return product.reduce((acc, el) => acc + (el.price * el.count), 0)
+        return product.reduce((acc, el) => acc + (el.data.price * el.count), 0)
     }
 
     return ( 
