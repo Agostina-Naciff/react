@@ -7,6 +7,7 @@ import ItemListComponent from './components/ItemList/itemList';
 import ItemDetailContainerComponent from './components/ItemDetail/itemDetailContainer';
 import CartContext from './Context/CartContext';
 import CartComponent from './components/Cart/cart';
+import HomeComponent from './components/home/home';
 
 
 
@@ -14,12 +15,15 @@ function App() {
 
   return (
     <BrowserRouter>
+      <CartContext>
       <HeaderComponent />
       <NavBarComponent />
-      <CartContext>
         <Switch>
           <Route exact path="/">
-            <Redirect to="/list" />
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/home">
+            <HomeComponent />
           </Route>
           <Route exact path="/list/:id?">
             <ItemListComponent />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './ItemCount.css';
 import { Button, FormControl, InputGroup } from "react-bootstrap"
 
 const ItemCountComponent = ({stock, onAdd}) => {
@@ -25,12 +26,12 @@ const ItemCountComponent = ({stock, onAdd}) => {
             <InputGroup.Prepend>
                 <Button onClick={setCount('-')}>-</Button>
             </InputGroup.Prepend>
-            <FormControl value={amount} readOnly={true}/>
+            <FormControl className="align" value={amount} readOnly={true}/>
             <InputGroup.Append>
                 <Button onClick={setCount('+')}>+</Button>
             </InputGroup.Append>
         </InputGroup>
-        <Button disabled={stock === 0} onClick={event}>Agregar a Carrito</Button>
+        <Button className="mt-2 w-100" disabled={stock === 0} onClick={event}>Agregar a Carrito</Button>
         </>
     )
 }

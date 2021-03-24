@@ -7,6 +7,7 @@ import { getFirestore } from '../../firebase/index';
 class ItemDetailContainerComponent extends React.Component {
 
     state = {
+        id: '',
         item: {}
     };
     
@@ -19,7 +20,7 @@ class ItemDetailContainerComponent extends React.Component {
             if (snapShot.size === 0) {
                 console.log('no results')
             }
-            this.setState({ item: snapShot.data()});
+            this.setState({id: id, item: snapShot.data()});
         })
         .catch(e => {
             console.log(e)
@@ -33,7 +34,7 @@ class ItemDetailContainerComponent extends React.Component {
         return (
             <>
             <Container>
-                    <ItemDetail props={this.state.item} />
+                    <ItemDetail props={this.state} />
             </Container>
             </>
         )

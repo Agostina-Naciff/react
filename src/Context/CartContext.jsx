@@ -4,9 +4,10 @@ export const cartContext = createContext();
 
 const CartContext = ({children}) => {
 
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
 
     const addItem = (item) => {
+        localStorage.setItem('cart', JSON.stringify([...product, item]));
         const index = isInCart(item.id);
         if (index === -1) {
             setProduct([...product, item]);
@@ -15,6 +16,7 @@ const CartContext = ({children}) => {
             item[index].count = item.count;
             setProduct(item);
         }
+        console.log(product)
     }
 
     const clear = () => {
@@ -28,7 +30,7 @@ const CartContext = ({children}) => {
     }
 
     const isInCart = (id) => {
-        return product.findIndex(x => x.id === id)
+        return product.findIndex(x => x.id === id);
     }
 
     const getCart = () => {
@@ -36,6 +38,7 @@ const CartContext = ({children}) => {
     }
 
     const finishShop = () => {
+        localStorage.removeItem('cart');
         return product.reduce( (acc, el) => {
             return acc.concat({
                 id: el.id,

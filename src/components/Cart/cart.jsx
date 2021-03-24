@@ -18,22 +18,44 @@ const CartComponent = () => {
     };
     const handleShow = (id) => setShowModal({show: true, id: id});
 
-    const comprar = () => {
-        const db = getFirestore();
-        const itemCollection = db.collection('compras');
-        itemCollection.add({
-            buyer: {
-                name: 'Agostina',
-                phone: 123456789,
-                email: 'agos@compras.com'
-            },
-            items: finishShop(),
-            date: new Date().toISOString(),
-            total: total()
-        })
-            .then(docRef => {
-                handleShow(docRef.id);
+    const validar = () => {
+        return new Promise((res, rej) => {
+            const db = getFirestore();
+            const itemCollection = db.collection('itemCollection');
+            getCart().map(x => {
+                itemCollection.doc(x.id).get()
+                .then(y => {
+                    const data = y.data()
+                    if (data.stock < x.count) {
+                        rej(false);
+                    }
+                    console.log('hola')
+                })
             })
+            res(true);
+
+        })
+    }
+
+    const comprar = async () => {
+        const valid = await validar();
+        if (valid) {
+            const db = getFirestore();
+            const itemCollection = db.collection('compras');
+            itemCollection.add({
+                buyer: {
+                    name: 'Agostina',
+                    phone: 123456789,
+                    email: 'agos@compras.com'
+                },
+                items: finishShop(),
+                date: new Date().toISOString(),
+                total: total()
+            })
+                .then(docRef => {
+                    handleShow(docRef.id);
+                })
+        }
     }
 
     const { getCart, finishShop, total, deleteItem, clear } = useContext(cartContext);
@@ -77,9 +99,16 @@ const CartComponent = () => {
                                     </tr>
                                 )
                             })}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><h5>Total</h5></td>
+                                <td>{total()}</td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </Table>
-                    <Button onClick={comprar}>Comprar</Button>
+                    <Button onClick={comprar} className="align-self-end">Comprar</Button>
                 </Container>
                 <Modal show={showModal.show} onHide={handleClose}>
                     <Modal.Dialog>
